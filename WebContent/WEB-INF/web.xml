@@ -19,4 +19,24 @@
     <servlet-name>firstServlet</servlet-name>
     <url-pattern>/firstServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>secondServlet</display-name>
+    <servlet-name>secondServlet</servlet-name>
+    <servlet-class>secondServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>secondServlet</servlet-name>
+    <url-pattern>/secondServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>requestServlet</display-name>
+    <servlet-name>requestServlet</servlet-name>
+    <servlet-class>requestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>requestServlet</servlet-name>
+    <url-pattern>/requestServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
