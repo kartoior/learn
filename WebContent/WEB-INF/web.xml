@@ -14,6 +14,10 @@
     <display-name>firstServlet</display-name>
     <servlet-name>firstServlet</servlet-name>
     <servlet-class>firstServlet</servlet-class>
+    <init-param>
+      <param-name>hellowen</param-name>
+      <param-value>password</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>firstServlet</servlet-name>
@@ -38,5 +42,29 @@
   <servlet-mapping>
     <servlet-name>requestServlet</servlet-name>
     <url-pattern>/requestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IdentityServlet</display-name>
+    <servlet-name>IdentityServlet</servlet-name>
+    <servlet-class>IdentityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IdentityServlet</servlet-name>
+    <url-pattern>/IdentityServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InitParamServlet</display-name>
+    <servlet-name>InitParamServlet</servlet-name>
+    <servlet-class>InitParamServlet</servlet-class>
+    <init-param>
+      <param-name>hellowen</param-name>
+      <param-value>password</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InitParamServlet</servlet-name>
+    <url-pattern>/InitParamServlet</url-pattern>
   </servlet-mapping>
 </web-app>

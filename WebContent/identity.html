@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+   function reloadImage(){
+	   document.getElementById('btn').disabled = true;
+	   document.getElementById('identity').src = 'IdentityServlet?ts=' + new Date().getTime();
+   }
+</script>
+</head>
+<body>
+   <img src="IdentityServlet" id="identity" onload="btn.disabled = false">
+   <input type=button value="换个图片" onclick="reloadImage()" id="btn">
+</body>
+</html>
