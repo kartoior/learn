@@ -9,6 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>upload folder</param-name>
+    <param-value>attachment</param-value>
+  </context-param>
+  <context-param>
+    <param-name>allowed file type</param-name>
+    <param-value>.gif,.jpg,.bmp</param-value>
+  </context-param>
   <servlet>
     <description></description>
     <display-name>firstServlet</display-name>
@@ -66,5 +74,50 @@
   <servlet-mapping>
     <servlet-name>InitParamServlet</servlet-name>
     <url-pattern>/InitParamServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ContextParamServlet</display-name>
+    <servlet-name>ContextParamServlet</servlet-name>
+    <servlet-class>ContextParamServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ContextParamServlet</servlet-name>
+    <url-pattern>/ContextParamServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InjectionServlet</display-name>
+    <servlet-name>InjectionServlet</servlet-name>
+    <servlet-class>InjectionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InjectionServlet</servlet-name>
+    <url-pattern>/InjectionServlet</url-pattern>
+  </servlet-mapping>
+  <env-entry>
+    <env-entry-name>hello</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>Hello, Welcome to the JavaEE Resource Injection</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>i</env-entry-name>
+    <env-entry-type>java.lang.Integer</env-entry-type>
+    <env-entry-value>30</env-entry-value>
+  </env-entry>
+  <env-entry>
+    <env-entry-name>persons</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>Helloween, Cobain, Roses, Axl,</env-entry-value>
+  </env-entry>
+  <servlet>
+    <description></description>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
 </web-app>
