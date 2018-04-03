@@ -1,0 +1,24 @@
+1.带有注解@PostConstruct和@PreDestroy的servlet生命周期
+     服务器加载Servlet-->
+  Servlet构造函数-->
+  @PostConstruct修饰的方法-->
+  init(ServletConfig conf)-->
+  Service(ServletRequest req, ServletResponse res)
+  --> destory()
+  --> @PreDestroy修饰的方法
+  --> 服务器卸载Servlet完毕
+2.Servlet之间的跳转(forward可多种文件夹下的跳转多种页面)
+  RequestDispatcher dispatcher = request.getRequestDispatcher
+  ("/");
+  dispatcher.forward(request,response);
+3.重定向（Redirect）
+  //设置状态码为302
+  response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARTIY);
+  //新网址
+  response.setHeader("Location","http://www.helloweenvsfei.com");
+4.自动刷新（Refresh）
+  response.setHeader("Refresh", "1000; URL=http://localhost:8080/");
+5.servlet线程不安全
+  解决方法：
+   （1）尽量不要定义属性
+   （2）使用synchronized(属性){}但是这样会造成线程的等待
