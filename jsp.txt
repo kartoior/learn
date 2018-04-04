@@ -1,0 +1,28 @@
+1. JSP指令
+  1.1 page:一个指令可写多个属性，出import外，任何page允许的属性都只能出现一次
+    <%@ page .....%> 
+          属性：language,extends, import,session,autoFlush,buffer,isThreadSafe,isErrorPage,errorPage,contentType,info,
+        trimDirective,Whitespaces
+  1.2 include：用于实现页面的区块化
+    <%@ include file="relativeURL"%>
+  1.3 taglib:用于指定JSP标签库
+    <%@ taglib uri="" prefix=""%>
+ 
+ 2. JSP行为
+  2.1 <jsp:include />:用于运行时包含某个文件。如果被包含的文件为JSP程序，则会先执行JSP程序，然后在把执行结果包含进来。
+    <jsp:include page="relativeURI" flush="true" />
+    flush默认为false,用于设置读入被保存文件前是否清空缓存
+  2.2 Java Bean行为:useBean行为，setProperty行为，getProterty行为
+   2.2.1 useBean行为
+     <jsp:useBean id="beanId" class="className" scope="Value" />
+     scope = "page": 只在该JSP内有效
+             "request": 只在当前request中有效
+             "session": 对当前用户有效
+             "application": 当前web应用程序内有效
+            默认为page
+   2.2.2 setProperty行为与getProperty行为
+      <jsp:setProperty name="beanName" property="propertyName"  value=""/>
+      <jsp:getProperty name="beanName" property="propertyName" />
+            
+    
+      
