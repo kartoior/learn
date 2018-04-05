@@ -140,4 +140,20 @@
      <servlet-name>UploadServlet</servlet-name>
      <url-pattern>/UploadServlet</url-pattern>
   </servlet-mapping>
+  
+  
+  <!-- jsp配置 -->
+  <servlet>
+     <servlet-name>greeting</servlet-name>
+     <servlet-class>/greeting.jsp</servlet-class>
+     <!-- 配置JSP初始化参数 -->
+     <init-param>
+        <param-name>message</param-name>
+        <param-value>welcome to jsp</param-value>
+     </init-param>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>greeeting</servlet-name>
+      <url-pattern>/greeting</url-pattern>
+  </servlet-mapping>
 </web-app>

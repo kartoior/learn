@@ -1,0 +1,97 @@
+1. JSP指令
+  1.1 page:一个指令可写多个属性，出import外，任何page允许的属性都只能出现一次
+    <%@ page .....%> 
+          属性：language,extends, import,session,autoFlush,buffer,isThreadSafe,isErrorPage,errorPage,contentType,info,
+        trimDirective,Whitespaces
+  1.2 include：用于实现页面的区块化
+    <%@ include file="relativeURL"%>
+  1.3 taglib:用于指定JSP标签库
+    <%@ taglib uri="" prefix=""%>
+ 
+2. JSP行为
+  2.1 <jsp:include />:用于运行时包含某个文件。如果被包含的文件为JSP程序，则会先执行JSP程序，然后在把执行结果包含进来。
+    <jsp:include page="relativeURI" flush="true" />
+    flush默认为false,用于设置读入被保存文件前是否清空缓存
+  2.2 Java Bean行为:useBean行为，setProperty行为，getProterty行为
+   2.2.1 useBean行为
+     <jsp:useBean id="beanId" class="className" scope="Value" />
+     scope = "page": 只在该JSP内有效
+             "request": 只在当前request中有效
+             "session": 对当前用户有效
+             "application": 当前web应用程序内有效
+            默认为page
+   2.2.2 setProperty行为与getProperty行为
+      <jsp:setProperty name="beanName" property="propertyName"  value=""/>
+      <jsp:getProperty name="beanName" property="propertyName" />
+            
+  2.3 <jsp:plugin />嵌入Applet:<jsp:plugin />,<jsp:params />,<jsp:param>,<jsp:fallback />
+  2.4 <jsp:forward />行为：
+      <jsp:forward page="">
+         <jsp:param name="" value="">
+         ********
+      </jsp:forward>
+  2.5 <jsp:directive />行为：相当于JSP指令：
+      <jsp:directive.page />相当于<%@ page%>指令；
+      <jsp:directive.include />相当于<%@ include%>指令；
+      <jsp:directive.taglib />相当于<%@ taglib%>指令
+
+
+3、JSP隐藏对象：out,request,response,config,session,application,page,pageContext,exception
+   3.1 out对象是javax.servlet.jsp.JspWriter类的实例。服务器向客户端输出的字符类内容可以通过out对象输出。
+   3.2 request对象是javax.servlet.ServletRequest类的实例，代表客户端的请求。request包含客户端的信息以及请求的信息。每次客户端请求都会产生一个request实例。
+   3.3 response对象是javax.servlet.ServletResponse类的实例，代表着客户端的响应。服务器端的任何输出都通过response对象发送到客户端浏览器。每次服务器端都会响应一个response实例。
+   3.4 config对象是javax.setvlet.ServletConfig类的实例。ServletConfig封装了配置在web.xml中初始化JSP的参数。JSP中通过config对象来获取这些参数。每个JSP中共有一个config对象。
+   3.5 session是javax.servlet.http.HttpSession类的实例。session和cookie是记录客户端访问信息的两种机制，session用于在服务器端保存用户信息，cookie用于在客户端保存用户信息。
+                 如果JSP中配置了<%@ page session="false"%>，则隐藏对象session不可用。每个用户对应一个session对象。
+   3.6 application对象是javax.servlet.ServletContext类的对象，application封装了JSP所在的Web应用程序的信息。如web.xml中配置的全局的初始化信息。整个Web应用程序对应一个application对象。
+   3.7 page对象是javax.servlet.jsp.HttpJspPage类的实例。page对象代表当前JSP页面，是当前JSP编译后的Servlet类的对象，相当于普通java类中的关键字this。
+   3.8 pageContext对象是javax.servlet.jsp.PageContext类的实例。pageContext对象代表当前JSP页面编译后的内容。通过pageContext能够获取到JSP中的资源。
+   3.9 exception对象是java.lang.Exception类的对象。exception封装了JSP中跑出的异常信息。
+                 要使用exception对象，需要设置<%@ page isErrorPage="true"%>。其通常被用来处理错误页面。
+   
+4. JSP配置
+   4.1 配置见 web.xml
+   4.2 <jsp-config>标签：支持对jsp的批量配置
+       <jsp-config>
+          <taglib>
+             <!-- 定义taglib-uri -->
+             <taglib-uri>taglib</taglib-uri>
+             <!-- 定义tld文件位置 -->
+             <taglib-location>/WEB-INF/tlds/taglib.tld</taglib-location>
+          </taglib>
+          <jsp-property-group>
+             <!-- 适用范围，所有/news下的所有jsp文件 -->
+             <url-pattern>/news/*.jsp</url-pattern>
+             <!-- 是否忽略EL表达式，默认为false -->
+             <el-ignored>true</el-ignored>
+             <!-- 编码方式 -->
+             <page-encoding>UTF-8</page-encoding>
+             <!-- 是否忽略jsp脚本，默认为false -->
+             <scripting-invalid>true</scripting-invalid>
+             <!-- 在执行JSP之前执行该文件 -->
+             <include-prelude>/head.jspf</include-prelude>
+             <!-- 在执行jsp后执行该文件 -->
+             <include-coda>/foot.jspf</include-coda>
+          </jsp-property-group>
+       </jsp-config>
+   
+5. EL表达式：${}写在JSP的HTML代码中，而不能写在<%%>引起的JSP脚本中
+   5.1 EL表达式提供了获取对象以及属性的简单方式。
+       <jsp:useBean id="person" class="Person"></jsp:useBean>
+       <body>
+         <!-- 相当于 request.getAttribute("person")或 session.getAttribute("person") -->
+                       欢迎您， ${ person }。
+         <!-- 相当于person.getAge()也相当于<jsp:getProperty name="person" property="age"> -->
+                       您的年龄为  ${ person.age },
+       </body>
+    5.2 EL表达式不仅可以获取request、session中的属性，还可以获取JSP隐藏对象的属性
+                   见图EL表达式的隐藏对象.png  ，图中的前缀表明了EL表达式苏区对象的范围。还有一种不带任何前缀的
+                   即${person.age}，会先在request中查找，如果没有，再在session中查找。
+    5.3 EL表达式运算
+        (1)EL表达式支持简单的运算：+， -， *， /(div)， %
+        (2)比较运算：<(lt)， >(gt)， ==(eq)， !=(ne)，>=(ge)， <=(le)
+        (3)多个运算可用且(&&或者and)，或(||或者or)， 否(!或者not)以及括号等连接起来
+        (4)字符比较时，如果为大于小于操作EL表达式会调用 compare(char ss)方法完成比较，等于操作会调用equals()方法完成比较
+        (5)对于Map或者数组类，还可以使用[]取值，或者使用empty判断是否为空
+        (6)EL表达式不能直接访问普通的方法以及静态属性
+      
